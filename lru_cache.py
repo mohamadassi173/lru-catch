@@ -44,21 +44,4 @@ class lru_cache:
     def isExist(self, key : int):
         return key in self.catch
     
-
-cache = lru_cache(2)
-cache[1] = 1 # cache is {1=1}
-cache[2] = 2 # cache is {1=1, 2=2}
-print(cache[1]) # return 1
-cache[3] = 3 # LRU key was 2, evicts key 2, cache is {1=1, 3=3}
-cache[2] # Throws an exception (not found)
-cache[4] = 4 # LRU key was 1, evicts key 1, cache is {4=4, 3=3}
-cache[1] # Throws an exception (not found)
-print(cache[4]) # return 4
-print(cache[3]) # return 3
-cache[5] = 5 # LRU key was 4, evicts key 4, cache is {3=3, 5=5}
-cache[4] # Throws an exception (not found)
-print(cache[3]) # return 3
-print(cache[5]) # return 5
-
-
     
