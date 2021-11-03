@@ -16,8 +16,9 @@ class lru_cache:
     
     def __getitem__(self, key):
         if not self.isExist(key):
-            print("not found")
-            
+            # print("not found")
+            raise Exception("not found")
+        
         # move the key to the end of dict and return its value   
         else:
             self.catch.move_to_end(key)
@@ -43,5 +44,4 @@ class lru_cache:
     # checks if the key exist in the dict
     def isExist(self, key : int):
         return key in self.catch
-    
     
