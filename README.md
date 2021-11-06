@@ -1,12 +1,13 @@
 # lru_cache Implementation
 
 ## about the task
-Implementation of "least recently used cache" using ordered dictionary data structure, 
-which keep the order of inserted keys and move specific key to the end of
-dict with O(1) complexity.
+Implementation of "least recently used cache" using dict of keys,
+and every key have a list of [value, previous added key, next added key]
+which make the dict to act like a linked list and keep the order of inserted 
+keys  with O(1) complexity.
 
 ## Required
-python 3.6 or above
+python
 
 ## To run
 * clone this repository
