@@ -1,11 +1,7 @@
-from collections import OrderedDict
 """
-Implementation of "least recently used cache" using dict of keys,
-and every key have a list of [value, previous added key, next added key]
-which make the dict to act like a linked list and keep the order of inserted 
-keys  with O(1) complexity.
-tested on: Python 3.9
-written in: vs code.
+- Implementation of "least recently used cache".
+- tested on: Python 3.9.
+- written in: vs code.
 """
 class lru_cache:
     
@@ -46,8 +42,9 @@ class lru_cache:
             remove = self.first
             self.first = self.catch[self.first][2]
             self.catch.pop(remove)
- 
- 
+    
+    
+    # updates the element place - changing next and prev values
     def update_place(self, key, value=None):
         # first element: 
         if key == self.first and key != self.last:
@@ -55,20 +52,18 @@ class lru_cache:
             self.catch[self.first] = [self.catch[self.first][0], None, self.catch[self.first][2]]
             self.catch[key] = [self.catch[key][0] if value == None else value, self.last, None]
             self.catch[self.last] = [self.catch[self.last][0], self.catch[self.last][1], key]
-            return
         # last element: 
-        if key == self.last:
-            self.catch[key] = [self.catch[key][0] if value == None else value, self.catch[key][1], None]        
-            return
+        elif key == self.last:
+            self.catch[key] = [self.catch[key][0] if value == None else value, self.catch[key][1], None]
         # in middle: 
-        prev, nex = self.catch[key][1], self.catch[key][2]
-        self.catch[prev] = [self.catch[prev][0], self.catch[prev][1], nex]
-        self.catch[nex] = [self.catch[nex][0], prev, self.catch[nex][2]]
-        self.catch[key] = [self.catch[key][0] if value == None else value, self.last, None]
-        self.catch[self.last] = [self.catch[self.last][0], self.catch[self.last][1], key]
+        else:
+            prev, nex = self.catch[key][1], self.catch[key][2]
+            self.catch[prev] = [self.catch[prev][0], self.catch[prev][1], nex]
+            self.catch[nex] = [self.catch[nex][0], prev, self.catch[nex][2]]
+            self.catch[key] = [self.catch[key][0] if value == None else value, self.last, None]
+            self.catch[self.last] = [self.catch[self.last][0], self.catch[self.last][1], key]
 
-        
-        
+               
     # checks if exceed the capacity
     def isFull(self) :
         # print(len(self.catch))
